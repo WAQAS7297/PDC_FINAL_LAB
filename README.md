@@ -1,3 +1,14 @@
+## 🚀 Deployment (Live Demo)
+
+**Cloud Run Deployment URL:**
+
+🔗 https://waqas-pdc-823333525467.europe-west1.run.app/
+
+> This endpoint hosts the **API Service (REST + tRPC)** deployed on Google Cloud Run.  
+> gRPC services are tested locally as per COMSATS PDC lab requirements.
+
+---
+
 # AI Image Classification System (REST + tRPC + gRPC + Microservices)
 
 This project is built to match the COMSATS PDC Final Lab Exam (Fall 2025) requirements:
