@@ -4,6 +4,7 @@ package imageclassifier;
 
 service ImageClassifier {
   rpc UploadImage (ImageRequest) returns (ImageResponse);
+  rpc UploadImages(ImagesRequest) returns (ImagesResponse);
 }
 
 message ImageRequest {

@@ -1,0 +1,126 @@
+PDC FINAL LAB – BENCHMARK RESULTS
+COMSATS University Islamabad, Lahore Campus
+Course: Parallel and Distributed Computing (CSC334)
+Student: Waqas Ramzan
+Date: 15/12/2025
+Environment: Localhost (Windows, Node.js)
+
+==================================================
+REST API – Single Image
+Endpoint: POST /uploadImage
+--------------------------------------------------
+Image: cat.png
+Response:
+  Label: car
+  Confidence: 0.8
+  ModelLatencyMs: 38
+  ApiTotalMs: 59.25
+
+ClientMeasuredMs: 94.32
+PayloadBytes(JSON): 73
+Network Calls: 1
+==================================================
+
+==================================================
+REST API – Batch (5 Images, Single Attempt)
+Endpoint: POST /uploadImages
+--------------------------------------------------
+Images:
+  cat.png
+  image copy 2.png
+  image copy 3.png
+  image copy.png
+  image.png
+
+ApiTotalMs: 186.87
+ClientMeasuredMs: 223.42
+PayloadBytes(JSON): 547
+Network Calls: 1 (batched)
+
+Per-image results:
+  cat.png          -> car (0.8),   totalMs: 43.03
+  image copy 2.png -> airplane (0.64), totalMs: 29.59
+  image copy 3.png -> unknown (0.86), totalMs: 31.57
+  image copy.png   -> flower (0.93), totalMs: 30.01
+  image.png        -> xray (0.95), totalMs: 30.39
+==================================================
+
+==================================================
+tRPC – Single Image
+Procedure: uploadImage
+--------------------------------------------------
+Image: cat.png
+Response:
+  Label: car
+  Confidence: 0.8
+  ModelLatencyMs: 26
+  TotalMs: 46.7
+
+ClientMeasuredMs: 140.64
+PayloadBytes(JSON): 69
+Network Calls: 1
+==================================================
+
+==================================================
+tRPC – Batch (5 Images, Single Attempt)
+Procedure: uploadImages
+--------------------------------------------------
+Images:
+  cat.png
+  image copy 2.png
+  image copy 3.png
+  image copy.png
+  image.png
+
+TotalMs (server): 197.79
+ClientMeasuredMs: 275.12
+PayloadBytes(JSON): 1034
+Network Calls: 1 (batched)
+
+Per-image results:
+  cat.png          -> car (0.8), totalMs: 54.34
+  image copy 2.png -> airplane (0.64), totalMs: 29.45
+  image copy 3.png -> unknown (0.86), totalMs: 28.26
+  image copy.png   -> flower (0.93), totalMs: 26.41
+  image.png        -> xray (0.95), totalMs: 32.35
+==================================================
+
+==================================================
+gRPC – Direct (Unary RPC)
+Client -> Model Service
+--------------------------------------------------
+Image: cat.png
+Response:
+  Label: car
+  Confidence: 0.8
+  ModelLatencyMs: 23
+
+ClientMeasuredMs: 69.45
+PayloadBytes(Protobuf approx): 54
+Network Calls: 1
+==================================================
+
+==================================================
+gRPC – Microservice (Service-to-Service)
+Client -> API Service -> Model Service
+--------------------------------------------------
+Image: cat.png
+Response:
+  Label: car
+  Confidence: 0.8
+  ModelLatencyMs: 38
+
+ClientMeasuredMs: 100.68
+PayloadBytes(Protobuf approx): 54
+Network Calls:
+  Client -> API Service: 1
+  API Service -> Model Service: 1
+  Total: 2
+==================================================
+
+Notes:
+- REST and tRPC use JSON serialization.
+- gRPC uses Protocol Buffers (binary) over HTTP/2.
+- gRPC payload size shown is approximate for comparison.
+- Microservice architecture increases latency slightly due to extra hop,
+  but improves decoupling and scalability.
