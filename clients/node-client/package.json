@@ -1,0 +1,27 @@
+{
+  "name": "node-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "rest:1": "node src/rest_single.js",
+    "rest:5": "node src/rest_batch.js",
+    "trpc:1": "tsx src/trpc_single.ts",
+    "trpc:5": "tsx src/trpc_batch.ts",
+    "grpc:direct": "node src/grpc_direct.js",
+    "grpc:via-api": "node src/grpc_via_api.js",
+    "all": "node src/run_all.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.10.10",
+    "@grpc/proto-loader": "^0.7.13",
+    "@trpc/client": "^10.45.2",
+    "axios": "^1.7.7",
+    "form-data": "^4.0.1",
+    "superjson": "^2.2.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.3"
+  }
+}

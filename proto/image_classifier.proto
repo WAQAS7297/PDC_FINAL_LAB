@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package imageclassifier;
+
+service ImageClassifier {
+  rpc UploadImage (ImageRequest) returns (ImageResponse);
+}
+
+message ImageRequest {
+  bytes imageData = 1;
+  string filename = 2;
+}
+
+message ImageResponse {
+  string label = 1;
+  double confidence = 2;
+  int64 modelLatencyMs = 3;
+}
