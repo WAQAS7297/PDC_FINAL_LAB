@@ -74,7 +74,7 @@ rpc UploadImage(ImageRequest) returns (ImageResponse);
 Therefore, the client can only send one image per request. Since no batch RPC (e.g., UploadImages) or streaming RPC was implemented, there is no valid “5 images in a single attempt” measurement for gRPC.
 
 Reporting this value as N/A is correct and keeps the comparison technically fair.
-
+---
 4. Observations (Based on Measured Output)
 Serialization overhead (REST/tRPC):
 Both REST and tRPC use JSON, which increases payload size and parsing cost, especially visible in batch requests:
